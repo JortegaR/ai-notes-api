@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CivilAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="EstadoUsuario">
+    <Key>
+      <PropertyRef Name="EstadoUsuarioID" />
+    </Key>
+    <Property Name="EstadoUsuarioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Membresias">
+    <Key>
+      <PropertyRef Name="MembresiaID" />
+    </Key>
+    <Property Name="MembresiaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="MembresiaUsuario">
+    <Key>
+      <PropertyRef Name="MembresiaUsuarioID" />
+    </Key>
+    <Property Name="MembresiaUsuarioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MembresiaID" Type="int" />
+    <Property Name="UsuarioID" Type="int" />
+  </EntityType>
+  <EntityType Name="Niveles">
+    <Key>
+      <PropertyRef Name="NivelID" />
+    </Key>
+    <Property Name="NivelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="int" />
+  </EntityType>
+  <EntityType Name="Paginas">
+    <Key>
+      <PropertyRef Name="PaginaID" />
+    </Key>
+    <Property Name="PaginaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Orden" Type="int" />
+    <Property Name="Action" Type="nvarchar" MaxLength="50" />
+    <Property Name="Controller" Type="nvarchar" MaxLength="50" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+    <Property Name="Estado" Type="bit" />
+  </EntityType>
+  <EntityType Name="Perfil">
+    <Key>
+      <PropertyRef Name="PerfilID" />
+    </Key>
+    <Property Name="PerfilID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PerfilPagina">
+    <Key>
+      <PropertyRef Name="PerfilPaginaID" />
+    </Key>
+    <Property Name="PerfilPaginaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PerfilID" Type="int" />
+    <Property Name="PaginaID" Type="int" />
+  </EntityType>
+  <EntityType Name="Proyectos">
+    <Key>
+      <PropertyRef Name="ProyectoID" />
+    </Key>
+    <Property Name="ProyectoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UsuarioID" Type="int" />
+    <Property Name="NivelID" Type="int" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="UsuarioID" />
+    </Key>
+    <Property Name="UsuarioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PerfilID" Type="int" />
+    <Property Name="EstadoUsuarioID" Type="int" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
+    <Property Name="Apellido" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserLogIn" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="150" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="FechaNacimiento" Type="datetime" />
+    <Property Name="FechaCreacion" Type="datetime" />
+    <Property Name="FechaModificacion" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_MembresiaUsuario_MembresiaUsuario">
+    <End Role="Membresias" Type="Self.Membresias" Multiplicity="0..1" />
+    <End Role="MembresiaUsuario" Type="Self.MembresiaUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Membresias">
+        <PropertyRef Name="MembresiaID" />
+      </Principal>
+      <Dependent Role="MembresiaUsuario">
+        <PropertyRef Name="MembresiaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MembresiaUsuario_Usuarios">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+    <End Role="MembresiaUsuario" Type="Self.MembresiaUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="UsuarioID" />
+      </Principal>
+      <Dependent Role="MembresiaUsuario">
+        <PropertyRef Name="UsuarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PerfilPagina_Paginas">
+    <End Role="Paginas" Type="Self.Paginas" Multiplicity="0..1" />
+    <End Role="PerfilPagina" Type="Self.PerfilPagina" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paginas">
+        <PropertyRef Name="PaginaID" />
+      </Principal>
+      <Dependent Role="PerfilPagina">
+        <PropertyRef Name="PaginaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PerfilPagina_Perfil">
+    <End Role="Perfil" Type="Self.Perfil" Multiplicity="0..1" />
+    <End Role="PerfilPagina" Type="Self.PerfilPagina" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfil">
+        <PropertyRef Name="PerfilID" />
+      </Principal>
+      <Dependent Role="PerfilPagina">
+        <PropertyRef Name="PerfilID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Proyectos_Niveles">
+    <End Role="Niveles" Type="Self.Niveles" Multiplicity="0..1" />
+    <End Role="Proyectos" Type="Self.Proyectos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Niveles">
+        <PropertyRef Name="NivelID" />
+      </Principal>
+      <Dependent Role="Proyectos">
+        <PropertyRef Name="NivelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Proyectos_Usuarios">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+    <End Role="Proyectos" Type="Self.Proyectos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="UsuarioID" />
+      </Principal>
+      <Dependent Role="Proyectos">
+        <PropertyRef Name="UsuarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuarios_EstadoUsuario">
+    <End Role="EstadoUsuario" Type="Self.EstadoUsuario" Multiplicity="0..1" />
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoUsuario">
+        <PropertyRef Name="EstadoUsuarioID" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="EstadoUsuarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuarios_Perfil">
+    <End Role="Perfil" Type="Self.Perfil" Multiplicity="0..1" />
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfil">
+        <PropertyRef Name="PerfilID" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="PerfilID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CivilAppModelStoreContainer">
+    <EntitySet Name="EstadoUsuario" EntityType="Self.EstadoUsuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Membresias" EntityType="Self.Membresias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MembresiaUsuario" EntityType="Self.MembresiaUsuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Niveles" EntityType="Self.Niveles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Paginas" EntityType="Self.Paginas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PerfilPagina" EntityType="Self.PerfilPagina" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proyectos" EntityType="Self.Proyectos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_MembresiaUsuario_MembresiaUsuario" Association="Self.FK_MembresiaUsuario_MembresiaUsuario">
+      <End Role="Membresias" EntitySet="Membresias" />
+      <End Role="MembresiaUsuario" EntitySet="MembresiaUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MembresiaUsuario_Usuarios" Association="Self.FK_MembresiaUsuario_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="MembresiaUsuario" EntitySet="MembresiaUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PerfilPagina_Paginas" Association="Self.FK_PerfilPagina_Paginas">
+      <End Role="Paginas" EntitySet="Paginas" />
+      <End Role="PerfilPagina" EntitySet="PerfilPagina" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PerfilPagina_Perfil" Association="Self.FK_PerfilPagina_Perfil">
+      <End Role="Perfil" EntitySet="Perfil" />
+      <End Role="PerfilPagina" EntitySet="PerfilPagina" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Proyectos_Niveles" Association="Self.FK_Proyectos_Niveles">
+      <End Role="Niveles" EntitySet="Niveles" />
+      <End Role="Proyectos" EntitySet="Proyectos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Proyectos_Usuarios" Association="Self.FK_Proyectos_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Proyectos" EntitySet="Proyectos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuarios_EstadoUsuario" Association="Self.FK_Usuarios_EstadoUsuario">
+      <End Role="EstadoUsuario" EntitySet="EstadoUsuario" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuarios_Perfil" Association="Self.FK_Usuarios_Perfil">
+      <End Role="Perfil" EntitySet="Perfil" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

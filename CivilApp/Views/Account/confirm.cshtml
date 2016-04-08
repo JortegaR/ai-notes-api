@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "confirm";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+<br />
+<div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading"></div>
+            <div class="panel-body">
+                <div class="col-lg-12">
+                    @if (ViewData["Confirm"] != "")
+                    {
+                        <div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            @ViewData["Confirm"]
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            Ha ocurrido un error guardando los datos
+                        </div>
+                    }
+                </div><!-- End .span4 -->
+                <div class="col-lg-12">
+                    <a class="btn btn-info col-lg-12" href="@Url.Action("LogIn", "Account")">Log In</a>
+                </div><!-- End .span4 -->
+            </div>
+        </div><!-- End .panel -->
+    </div><!-- End .span6 -->
+</div>    
+
+    
+

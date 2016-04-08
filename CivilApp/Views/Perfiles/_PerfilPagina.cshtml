@@ -1,0 +1,100 @@
+﻿@model IEnumerable<CivilApp.PerfilPagina>
+@using CivilApp
+@{
+    ViewBag.Title = "_PerfilPagina";
+    CivilAppEntities db = new CivilAppEntities();
+    var items = db.Paginas.ToList();
+
+    var count = 0;
+}0
+
+<ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="#tab1" role="tab" data-toggle="tab">Modulos relacionadoos</a></li>
+</ul>
+
+<div class="tab-pane active" id="tab1">
+    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal">
+        <i class="icon-share icon-white"></i> Asignar Módulos Relacionados
+    </button>
+
+
+    <div class="col-lg-5">
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                <h4>
+                    <span>Modulos Relacionados</span>
+                </h4>
+            </div>
+            <div class="panel-body">
+                <table id="tb_items" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Descripción de Pagina</th>
+                            <th style="text-align:center;" class="span1">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderBy(o => o.Paginas.Descripcion))
+                        {
+                            <tr>
+                                <td><a href="#" title="Ver detalle">@item.Paginas.Descripcion</a></td>
+                                <td style="text-align:center; width:50px;">
+                                    <div class="btn-group btn-group-xs">
+                                        <a href="#" class="btn btn-small"><i class="icon-trash itemBorrar " data-id="@item.Paginas.PaginaID" title="Borrar Pagina"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div><!-- End .panel -->
+    </div>
+</div>
+    
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Asignar Módulos Relacionados</h4>
+
+                </div>
+                <div class="modal-body">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <table id="resultTable" class="table table-bordered table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center;" class="span1">Seleccione</th>
+                                        <th style="display: none;">PerfilPaginaID</th>
+                                        <th>Descripción Pagina</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body">
+                                    @if (items != null)
+                                    {
+                                        foreach (var pro in items.OrderBy(o => o.Descripcion))
+                                        {
+                                            <tr>
+                                                <td style="text-align:center;" class="span1"><input type="checkbox" class="checks" name="diputadoID" value="@pro.PaginaID" /></td>
+                                                <td style="display: none;">@pro.PaginaID</td>
+                                                <td>@pro.Descripcion</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnSaveAndClose">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>

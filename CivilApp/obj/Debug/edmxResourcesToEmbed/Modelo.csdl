@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CivilAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="EstadoUsuario">
+    <Key>
+      <PropertyRef Name="EstadoUsuarioID" />
+    </Key>
+    <Property Name="EstadoUsuarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuarios_EstadoUsuario" FromRole="EstadoUsuario" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="Membresias">
+    <Key>
+      <PropertyRef Name="MembresiaID" />
+    </Key>
+    <Property Name="MembresiaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="MembresiaUsuario" Relationship="Self.FK_MembresiaUsuario_MembresiaUsuario" FromRole="Membresias" ToRole="MembresiaUsuario" />
+  </EntityType>
+  <EntityType Name="MembresiaUsuario">
+    <Key>
+      <PropertyRef Name="MembresiaUsuarioID" />
+    </Key>
+    <Property Name="MembresiaUsuarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MembresiaID" Type="Int32" />
+    <Property Name="UsuarioID" Type="Int32" />
+    <NavigationProperty Name="Membresias" Relationship="Self.FK_MembresiaUsuario_MembresiaUsuario" FromRole="MembresiaUsuario" ToRole="Membresias" />
+    <NavigationProperty Name="Usuarios" Relationship="Self.FK_MembresiaUsuario_Usuarios" FromRole="MembresiaUsuario" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="Niveles">
+    <Key>
+      <PropertyRef Name="NivelID" />
+    </Key>
+    <Property Name="NivelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="Int32" />
+    <NavigationProperty Name="Proyectos" Relationship="Self.FK_Proyectos_Niveles" FromRole="Niveles" ToRole="Proyectos" />
+  </EntityType>
+  <EntityType Name="Paginas">
+    <Key>
+      <PropertyRef Name="PaginaID" />
+    </Key>
+    <Property Name="PaginaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Orden" Type="Int32" />
+    <Property Name="Action" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Controller" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PerfilPagina" Relationship="Self.FK_PerfilPagina_Paginas" FromRole="Paginas" ToRole="PerfilPagina" />
+    <Property Name="Estado" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Perfil">
+    <Key>
+      <PropertyRef Name="PerfilID" />
+    </Key>
+    <Property Name="PerfilID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PerfilPagina" Relationship="Self.FK_PerfilPagina_Perfil" FromRole="Perfil" ToRole="PerfilPagina" />
+    <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuarios_Perfil" FromRole="Perfil" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="PerfilPagina">
+    <Key>
+      <PropertyRef Name="PerfilPaginaID" />
+    </Key>
+    <Property Name="PerfilPaginaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PerfilID" Type="Int32" />
+    <Property Name="PaginaID" Type="Int32" />
+    <NavigationProperty Name="Paginas" Relationship="Self.FK_PerfilPagina_Paginas" FromRole="PerfilPagina" ToRole="Paginas" />
+    <NavigationProperty Name="Perfil" Relationship="Self.FK_PerfilPagina_Perfil" FromRole="PerfilPagina" ToRole="Perfil" />
+  </EntityType>
+  <EntityType Name="Proyectos">
+    <Key>
+      <PropertyRef Name="ProyectoID" />
+    </Key>
+    <Property Name="ProyectoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UsuarioID" Type="Int32" />
+    <Property Name="NivelID" Type="Int32" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Niveles" Relationship="Self.FK_Proyectos_Niveles" FromRole="Proyectos" ToRole="Niveles" />
+    <NavigationProperty Name="Usuarios" Relationship="Self.FK_Proyectos_Usuarios" FromRole="Proyectos" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="UsuarioID" />
+    </Key>
+    <Property Name="UsuarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PerfilID" Type="Int32" />
+    <Property Name="EstadoUsuarioID" Type="Int32" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserLogIn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+    <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="EstadoUsuario" Relationship="Self.FK_Usuarios_EstadoUsuario" FromRole="Usuarios" ToRole="EstadoUsuario" />
+    <NavigationProperty Name="MembresiaUsuario" Relationship="Self.FK_MembresiaUsuario_Usuarios" FromRole="Usuarios" ToRole="MembresiaUsuario" />
+    <NavigationProperty Name="Perfil" Relationship="Self.FK_Usuarios_Perfil" FromRole="Usuarios" ToRole="Perfil" />
+    <NavigationProperty Name="Proyectos" Relationship="Self.FK_Proyectos_Usuarios" FromRole="Usuarios" ToRole="Proyectos" />
+    <Property Name="FechaNacimiento" Type="DateTime" Precision="3" />
+  </EntityType>
+  <Association Name="FK_Usuarios_EstadoUsuario">
+    <End Role="EstadoUsuario" Type="Self.EstadoUsuario" Multiplicity="0..1" />
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoUsuario">
+        <PropertyRef Name="EstadoUsuarioID" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="EstadoUsuarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MembresiaUsuario_MembresiaUsuario">
+    <End Role="Membresias" Type="Self.Membresias" Multiplicity="0..1" />
+    <End Role="MembresiaUsuario" Type="Self.MembresiaUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Membresias">
+        <PropertyRef Name="MembresiaID" />
+      </Principal>
+      <Dependent Role="MembresiaUsuario">
+        <PropertyRef Name="MembresiaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MembresiaUsuario_Usuarios">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+    <End Role="MembresiaUsuario" Type="Self.MembresiaUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="UsuarioID" />
+      </Principal>
+      <Dependent Role="MembresiaUsuario">
+        <PropertyRef Name="UsuarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Proyectos_Niveles">
+    <End Role="Niveles" Type="Self.Niveles" Multiplicity="0..1" />
+    <End Role="Proyectos" Type="Self.Proyectos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Niveles">
+        <PropertyRef Name="NivelID" />
+      </Principal>
+      <Dependent Role="Proyectos">
+        <PropertyRef Name="NivelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PerfilPagina_Paginas">
+    <End Role="Paginas" Type="Self.Paginas" Multiplicity="0..1" />
+    <End Role="PerfilPagina" Type="Self.PerfilPagina" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paginas">
+        <PropertyRef Name="PaginaID" />
+      </Principal>
+      <Dependent Role="PerfilPagina">
+        <PropertyRef Name="PaginaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PerfilPagina_Perfil">
+    <End Role="Perfil" Type="Self.Perfil" Multiplicity="0..1" />
+    <End Role="PerfilPagina" Type="Self.PerfilPagina" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfil">
+        <PropertyRef Name="PerfilID" />
+      </Principal>
+      <Dependent Role="PerfilPagina">
+        <PropertyRef Name="PerfilID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuarios_Perfil">
+    <End Role="Perfil" Type="Self.Perfil" Multiplicity="0..1" />
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfil">
+        <PropertyRef Name="PerfilID" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="PerfilID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Proyectos_Usuarios">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+    <End Role="Proyectos" Type="Self.Proyectos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="UsuarioID" />
+      </Principal>
+      <Dependent Role="Proyectos">
+        <PropertyRef Name="UsuarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CivilAppEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="EstadoUsuario" EntityType="Self.EstadoUsuario" />
+    <EntitySet Name="Membresias" EntityType="Self.Membresias" />
+    <EntitySet Name="MembresiaUsuario" EntityType="Self.MembresiaUsuario" />
+    <EntitySet Name="Niveles" EntityType="Self.Niveles" />
+    <EntitySet Name="Paginas" EntityType="Self.Paginas" />
+    <EntitySet Name="Perfil" EntityType="Self.Perfil" />
+    <EntitySet Name="PerfilPagina" EntityType="Self.PerfilPagina" />
+    <EntitySet Name="Proyectos" EntityType="Self.Proyectos" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+    <AssociationSet Name="FK_Usuarios_EstadoUsuario" Association="Self.FK_Usuarios_EstadoUsuario">
+      <End Role="EstadoUsuario" EntitySet="EstadoUsuario" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MembresiaUsuario_MembresiaUsuario" Association="Self.FK_MembresiaUsuario_MembresiaUsuario">
+      <End Role="Membresias" EntitySet="Membresias" />
+      <End Role="MembresiaUsuario" EntitySet="MembresiaUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MembresiaUsuario_Usuarios" Association="Self.FK_MembresiaUsuario_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="MembresiaUsuario" EntitySet="MembresiaUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Proyectos_Niveles" Association="Self.FK_Proyectos_Niveles">
+      <End Role="Niveles" EntitySet="Niveles" />
+      <End Role="Proyectos" EntitySet="Proyectos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PerfilPagina_Paginas" Association="Self.FK_PerfilPagina_Paginas">
+      <End Role="Paginas" EntitySet="Paginas" />
+      <End Role="PerfilPagina" EntitySet="PerfilPagina" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PerfilPagina_Perfil" Association="Self.FK_PerfilPagina_Perfil">
+      <End Role="Perfil" EntitySet="Perfil" />
+      <End Role="PerfilPagina" EntitySet="PerfilPagina" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuarios_Perfil" Association="Self.FK_Usuarios_Perfil">
+      <End Role="Perfil" EntitySet="Perfil" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Proyectos_Usuarios" Association="Self.FK_Proyectos_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Proyectos" EntitySet="Proyectos" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

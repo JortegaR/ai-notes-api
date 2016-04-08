@@ -1,0 +1,212 @@
+﻿@model CivilApp.Perfil
+@using CivilApp
+@{
+    ViewBag.Title = "Nuevo";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+
+    CivilAppEntities db = new CivilAppEntities();
+
+    var modelo = db.Perfil.First();
+    var items = db.Paginas.ToList();
+}
+
+
+<br />
+<div class="row">
+
+<div class="col-lg-12">
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+            <h4>
+                <span>Nuevo Perfil</span>
+            </h4>
+        </div>
+        <div class="panel-body">
+
+            <form class="form-horizontal" action="Nuevo" method="post" role="form">
+                <div class="form-group">
+                    <label class="col-lg-2 control-label" for="normalInput">Descripcion Perfil</label>
+                    <div class="col-lg-9">
+                        <input type="text" name="Descripcion" id="Descripcion" class="form-control" required>
+                    </div>
+                </div><!-- End .form-group  -->
+                
+                <div class="col-lg-12">
+                  
+                <div class="panel-heading">
+                    <h4>
+                        <span>Modulos Relacionados</span>
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal">
+                        <i class="icon-share icon-white"></i> Asignar Módulos 
+                    </button>
+                    <br />
+                    <br />
+
+                    <table id="tb_items" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Descripción de Pagina</th>
+                                <th style="text-align:center;" class="span1">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @try
+                            {
+                                    foreach (var item in Model.PerfilPagina)
+                                    {
+                                    <tr>
+                                        <td><a href="#" title="Ver detalle">@item.Paginas.Descripcion</a></td>
+                                        <td style="text-align:center; width:50px;">
+                                            <div class="btn-group btn-group-xs">
+                                                <a href="#" class="btn btn-small"><i class="icon-trash itemBorrar " data-id="@item.Paginas.PaginaID" title="Borrar Pagina"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    }
+                            }
+                            catch(NullReferenceException nre){
+                                                    
+                            }
+                                                   
+                        </tbody>
+                    </table>
+                </div>
+                                    
+                            
+
+                                                  
+                   
+                    
+
+                </div><!-- End .span6 --> 
+                <br/>
+                <div class="form-group">
+                    <div class="col-lg-offset-3 col-lg-9">
+                        <button type="submit" class="btn btn-info">Guardar</button>
+                        <button type="button" class="btn btn-default">Cancelar</button>
+                    </div>
+                </div><!-- End .form-group  -->
+               
+            </form>
+
+        </div>
+
+    </div><!-- End .panel -->
+
+</div><!-- End .span6 -->
+
+
+   
+    
+
+</div>
+
+
+
+
+ <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Asignar Módulos Relacionados</h4>
+
+            </div>
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <table id="resultTable" class="table table-bordered table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center;" class="span1">Seleccione</th>
+                                    <th style="display: none;">PerfilPaginaID</th>
+                                    <th>Descripción Pagina</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body">
+                                @if (items != null)
+                                {
+                                    foreach (var pro in items.OrderBy(o => o.Descripcion))
+                                    {
+                                        <tr>
+                                            <td style="text-align:center;" class="span1"><input type="checkbox" class="checks" name="diputadoID" value="@pro.PaginaID" /></td>
+                                            <td style="display: none;">@pro.PaginaID</td>
+                                            <td>@pro.Descripcion</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnSaveAndClose">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/Scripts/jquery-2.2.2.js"></script>
+
+
+
+
+
+<script>
+
+
+    $("#btnSaveAndClose").click(function () {
+        var $chkboxes = $('#table-body').find("tr input[name=diputadoID]:checked");
+        var checkBoxVals = $chkboxes.map(function () {
+            return $(this).val();
+        }).toArray();
+        if ($chkboxes.length > 0) {
+            $.ajax({
+                url: '@Url.Action("GetItemSelected", "Perfiles")',
+                type: 'POST',
+                data: { id: checkBoxVals },
+                traditional: true,
+                success: function (data) {
+                    var table = document.getElementById("tb_items");
+                    $.each(data, function (i, item) {
+                        var rowCount = table.rows.length;
+                        var row = table.insertRow(rowCount);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var random = Math.floor((Math.random() * 100000) + 1);
+                        cell1.innerHTML = '<input type="hidden" name="PerfilPagina.Index" value="' + random + '"/>' + '<input type="hidden" name="PerfilPagina[' + random + '].PaginaID" value="' + item.PaginaID + '"/>' + item.Descripcion;
+                        cell2.innerHTML = '<a href="#" class="btn btn-small" onclick="removeRow(this)"><i class="icon-trash itemBorrar " title="Borrar Item"></i></a>';
+                    });
+                }
+            });
+        }
+    });
+    
+
+    function removeRow(selector) {
+        //alert();
+        if ($('#tb_items tr').length > 1) {
+            $(selector).closest('tr').remove();
+        }
+    }
+
+    function RemoveEquipo(rows) {
+
+        var current = window.event.srcElement;
+        //here we will delete the line
+        while ((current = current.parentElement) && current.tagName != "TR");
+        current.parentElement.removeChild(current);
+    }
+
+
+</script>

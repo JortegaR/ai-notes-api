@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f721dc35cdf64ca9a15ef9e5dffb76a5" Name="Diagram1">
+        <EntityTypeShape EntityType="CivilAppModel.EstadoUsuario" Width="1.5" PointX="3.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CivilAppModel.Membresias" Width="1.5" PointX="6" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CivilAppModel.MembresiaUsuario" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CivilAppModel.Niveles" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CivilAppModel.Paginas" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CivilAppModel.Perfil" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CivilAppModel.PerfilPagina" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CivilAppModel.Proyectos" Width="1.5" PointX="8.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CivilAppModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CivilAppModel.Usuarios" Width="1.5" PointX="6" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="CivilAppModel.FK_Usuarios_EstadoUsuario" ManuallyRouted="false" />
+        <AssociationConnector Association="CivilAppModel.FK_MembresiaUsuario_MembresiaUsuario" ManuallyRouted="false" />
+        <AssociationConnector Association="CivilAppModel.FK_MembresiaUsuario_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="CivilAppModel.FK_Proyectos_Niveles" ManuallyRouted="false" />
+        <AssociationConnector Association="CivilAppModel.FK_PerfilPagina_Paginas" ManuallyRouted="false" />
+        <AssociationConnector Association="CivilAppModel.FK_PerfilPagina_Perfil" ManuallyRouted="false" />
+        <AssociationConnector Association="CivilAppModel.FK_Usuarios_Perfil" ManuallyRouted="false" />
+        <AssociationConnector Association="CivilAppModel.FK_Proyectos_Usuarios" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
