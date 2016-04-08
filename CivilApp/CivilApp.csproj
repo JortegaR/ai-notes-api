@@ -1773,6 +1773,7 @@
     <Content Include="Views\Perfiles\Index.cshtml" />
     <Content Include="Views\Perfiles\Nuevo.cshtml" />
     <Content Include="Views\Perfiles\_PerfilPagina.cshtml" />
+    <Content Include="Views\Perfiles\Borrar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

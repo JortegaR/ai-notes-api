@@ -56,5 +56,40 @@ namespace CivilApp.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+
+
+        [Authorize]
+        public ActionResult Borrar(int id = 0)
+        {
+            Perfil p = _entity.Perfil.Find(id);
+            if (p == null)
+            {
+                return HttpNotFound();
+            }
+            return View(p);
+        }
+
+        //
+        // POST: /Perfil/Delete/5
+
+        [HttpPost, ActionName("Borrar")]
+        [Authorize]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Perfil p = _entity.Perfil.Find(id);
+            var comp = p.PerfilPagina.ToList();
+            if (comp.Count > 0)
+            {
+                foreach (var co in comp)
+                {
+                    p.PerfilPagina.Remove(co);
+                }
+            }
+            _entity.Perfil.Remove(p);
+            _entity.SaveChanges();
+            return RedirectToAction("Index", "Perfiles");
+        }
+
+
     }
 }
