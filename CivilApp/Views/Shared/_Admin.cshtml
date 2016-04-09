@@ -43,12 +43,17 @@
     <!-- Plugin stylesheets -->
     <link href="~/Content/plugins/misc/qtip/jquery.qtip.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/plugins/forms/uniform/uniform.default.css" type="text/css" rel="stylesheet" />
-
-    <!-- Plugin stylesheets -->
-    <link href="~/Content/plugins/misc/qtip/jquery.qtip.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/plugins/forms/uniform/uniform.default.css" type="text/css" rel="stylesheet" />
     <link href="~/Content/plugins/tables/dataTables/jquery.dataTables.css" type="text/css" rel="stylesheet" />
     <link href="~/Content/plugins/tables/dataTables/TableTools.css" type="text/css" rel="stylesheet" />
+
+
+    <link href="~/Content/plugins/forms/inputlimiter/jquery.inputlimiter.css" type="text/css" rel="stylesheet" />
+    <link href="~/Content/plugins/forms/togglebutton/toggle-buttons.css" type="text/css" rel="stylesheet" />
+    <link href="~/Content/plugins/forms/color-picker/color-picker.css" type="text/css" rel="stylesheet" />
+    <link href="~/Content/plugins/forms/select/select2.css" type="text/css" rel="stylesheet" />
+    <link href="~/Content/plugins/forms/validate/validate.css" type="text/css" rel="stylesheet" />
+    @Url.Content("~/Content/plugins/forms/smartWizzard/smart_wizard.css")
+    @*<link href="~/Content/plugins/forms/smartWizzard/smart_wizard.css" type="text/css" rel="stylesheet" />*@
 
 
     <!-- Main stylesheets -->
@@ -127,7 +132,7 @@
                                         <span class="msg">I have question about new function ...</span>
                                     </li>
                                     <li>
-                                        <span class="icon avatar"><img src="images/avatar.jpg" alt="" /></span>
+                                       
                                         <span class="name"><a data-toggle="modal" href="#myModal1"><strong>George Michael</strong></a><span class="time">1 hour ago</span></span>
                                         <span class="msg">I need to meet you urgent please call me ...</span>
                                     </li>
@@ -236,7 +241,7 @@
                         <li>
                             <a href="#"><span class="icon16 icomoon-icon-cog-2"></span>Administración</a>
                             <ul class="sub">
-                                <li><a href="forms.html"><span class="icon16 icomoon-icon-user"></span>Usuarios</a></li>
+                                <li><a href="@Url.Action("Index", "Usuarios")"><span class="icon16 icomoon-icon-user"></span>Usuarios</a></li>
                                 <li><a href="@Url.Action("Index", "Perfiles")"><span class="icon16 icomoon-icon-profile"></span>Perfiles</a></li>
                                 <li><a href="#"><span class="icon16 icomoon-icon-file"></span>Proyectos</a></li>
                                 <li><a href="#"><span class="icon16 icomoon-icon-shield"></span>Membresias</a></li>
@@ -311,9 +316,24 @@
     <script type="text/javascript" src="~/Content/plugins/tables/dataTables/ZeroClipboard.js"></script>
     <script type="text/javascript" src="~/Content/plugins/tables/responsive-tables/responsive-tables.js"></script><!-- Make tables responsive -->
 
+    <!-- Form plugins -->
+    <script type="text/javascript" src="~/Content/plugins/forms/elastic/jquery.elastic.js"></script>
+    <script type="text/javascript" src="~/Content/plugins/forms/inputlimiter/jquery.inputlimiter.1.3.min.js"></script>
+    <script type="text/javascript" src="~/Content/plugins/forms/maskedinput/jquery.maskedinput-1.3.min.js"></script>
+    <script type="text/javascript" src="~/Content/plugins/forms/togglebutton/jquery.toggle.buttons.js"></script>
+    <script type="text/javascript" src="~/Content/plugins/forms/uniform/jquery.uniform.min.js"></script>
+    <script type="text/javascript" src="~/Content/plugins/forms/globalize/globalize.js"></script>
+    <script type="text/javascript" src="~/Content/plugins/forms/color-picker/colorpicker.js"></script>
+    <script type="text/javascript" src="~/Content/plugins/forms/timeentry/jquery.timeentry.min.js"></script>
+    <script type="text/javascript" src="~/Content/plugins/forms/select/select2.min.js"></script>
+    <script type="text/javascript" src="~/Content/plugins/forms/dualselect/jquery.dualListBox-1.3.min.js"></script>
+    <script type="text/javascript" src="~/Content/plugins/forms/tiny_mce/tinymce.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/supr-theme/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="~/Content/js/supr-theme/jquery-ui-sliderAccess.js"></script>
+
     <!-- Init plugins -->
     <script type="text/javascript" src="~/Content/js/main.js"></script><!-- Core js functions -->
-    <script type="text/javascript" src="~/Content/js/empty.js"></script><!-- Init plugins only for page -->
+   
     <script type="text/javascript" src="~/Content/js/datatable.js"></script><!-- Init plugins only for page -->
 </body>
 </html>

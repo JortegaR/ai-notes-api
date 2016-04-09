@@ -191,6 +191,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PerfilesController.cs" />
     <Compile Include="Controllers\PerfilPaginaController.cs" />
+    <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="EstadoUsuario.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -1777,6 +1778,11 @@
     <Content Include="Views\Perfiles\Borrar.cshtml" />
     <Content Include="Views\Perfiles\Detalle.cshtml" />
     <Content Include="Views\Perfiles\Editar.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Usuarios\Nuevo.cshtml" />
+    <Content Include="Views\Usuarios\Detalle.cshtml" />
+    <Content Include="Views\Usuarios\Editar.cshtml" />
+    <Content Include="Views\Usuarios\Borrar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

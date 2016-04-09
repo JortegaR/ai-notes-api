@@ -197,6 +197,6 @@ C:\Users\JorgeOR\Documents\GitHub\CivilApp\CivilApp\CivilApp\bin\ko\System.Spati
 C:\Users\JorgeOR\Documents\GitHub\CivilApp\CivilApp\CivilApp\bin\ru\System.Spatial.resources.dll
 C:\Users\JorgeOR\Documents\GitHub\CivilApp\CivilApp\CivilApp\bin\zh-Hans\System.Spatial.resources.dll
 C:\Users\JorgeOR\Documents\GitHub\CivilApp\CivilApp\CivilApp\bin\zh-Hant\System.Spatial.resources.dll
-C:\Users\JorgeOR\Documents\GitHub\CivilApp\CivilApp\CivilApp\obj\Debug\CivilApp.csprojResolveAssemblyReference.cache
 C:\Users\JorgeOR\Documents\GitHub\CivilApp\CivilApp\CivilApp\obj\Debug\CivilApp.dll
 C:\Users\JorgeOR\Documents\GitHub\CivilApp\CivilApp\CivilApp\obj\Debug\CivilApp.pdb
+C:\Users\JorgeOR\Documents\GitHub\CivilApp\CivilApp\CivilApp\obj\Debug\CivilApp.csprojResolveAssemblyReference.cache

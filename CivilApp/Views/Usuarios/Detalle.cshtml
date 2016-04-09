@@ -1,0 +1,78 @@
+﻿@model CivilApp.Usuarios
+@using CivilApp
+@{
+    ViewBag.Title = "Detalle";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+
+    CivilAppEntities db = new CivilAppEntities();
+
+    var p = db.Perfil.ToList();
+    var items = db.Paginas.ToList();
+}
+
+
+
+<br />
+
+<div class="row">
+
+    <div class="col-lg-12">
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                <h4>
+                    <span>Nuevo Perfil</span>
+                </h4>
+            </div>
+            <div class="panel-body">
+
+                <form class="form-horizontal"role="form">
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" for="normalInput">Nombre</label>
+                        <div class="col-lg-9">
+                            <input type="text" name="Nombre" id="Nombre" value="@Model.Nombre" class="form-control" disabled>
+                        </div>
+                    </div><!-- End .form-group  -->
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" for="normalInput">Apellido</label>
+                        <div class="col-lg-9">
+                            <input type="text" name="Apellido" id="Apellido" value="@Model.Apellido" class="form-control" disabled>
+                        </div>
+                    </div><!-- End .form-group  -->
+                    @try { 
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" for="normalInput">Perfil</label>
+                        <div class="col-lg-9">
+                            <input type="text" name="Perfil" id="Perfil" value="@Model.Perfil.Descripcion" class="form-control" disabled>
+                        </div>
+                    </div><!-- End .form-group  -->
+                    }catch(NullReferenceException nre){}
+                    
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" for="normalInput">User LogIn</label>
+                        <div class="col-lg-9">
+                            <input type="text" name="UserLogIn" class="form-control" value="@Model.UserLogIn" disabled>
+                        </div>
+                    </div><!-- End .form-group  -->
+                  
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" for="normalInput">Email</label>
+                        <div class="col-lg-9">
+                            <input type="email" name="Email" id="email" value="@Model.Email" class="form-control" disabled>
+                        </div>
+                    </div><!-- End .form-group  -->
+                    <!-- End .span6 -->
+                    <br />
+                    <div class="form-group">
+                        <div class="col-lg-offset-3 col-lg-9">
+                            <a type="button" href="@Url.Action("Index", "Usuarios")" class="btn btn-info"><i class="icon16 icomoon-icon-backspace white"></i> Volver</a>
+                            <a type="button" href="@Url.Action("Editar", "Usuarios", new { id = Model.UsuarioID})" class="btn btn-success"><i class="icon16 icomoon-icon-pencil white"></i> Editar</a>
+                        </div>
+                    </div><!-- End .form-group  -->
+                </form>
+            </div>
+        </div><!-- End .panel -->
+    </div><!-- End .span6 -->
+</div>
+

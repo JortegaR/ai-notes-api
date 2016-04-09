@@ -11,10 +11,10 @@ var supr_Options = {
 //load some plugins only if is needed
 Modernizr.load({
   test: Modernizr.placeholder,
-  nope: '~/Content/plugins/forms/placeholder/jquery.placeholder.min.js',
+  nope: 'Content/plugins/forms/placeholder/jquery.placeholder.min.js',
   complete: function () {
 	//------------- placeholder fallback  -------------//
-      //$('input[placeholder], textarea[placeholder]').placeholder();
+   //   $('input[placeholder], textarea[placeholder]').placeholder();
   }
 });
 Modernizr.load({

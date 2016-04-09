@@ -111,7 +111,7 @@ namespace CivilApp.Controllers
             {
                 foreach (var co in comp)
                 {
-                    p.PerfilPagina.Remove(co);
+                    _entity.PerfilPagina.Remove(co);
                 }
             }
             _entity.Perfil.Remove(p);
