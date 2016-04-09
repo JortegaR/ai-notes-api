@@ -1,7 +1,7 @@
 ﻿@model CivilApp.Perfil
 @using CivilApp
 @{
-    ViewBag.Title = "Nuevo";
+    ViewBag.Title = "Editar";
     Layout = "~/Views/Shared/_Admin.cshtml";
 
     CivilAppEntities db = new CivilAppEntities();
@@ -10,30 +10,34 @@
     var items = db.Paginas.ToList();
 }
 
+<input id="PerfilID" class="hidden" value="@Model.PerfilID" />
 
 <br />
 <div class="row">
 
-<div class="col-lg-12">
+    <div class="col-lg-12">
 
-    <div class="panel panel-default">
+        <div class="panel panel-default">
 
-        <div class="panel-heading">
-            <h4>
-                <span>Nuevo Perfil</span>
-            </h4>
-        </div>
-        <div class="panel-body">
+            <div class="panel-heading">
+                <h4>
+                    <span>Nuevo Perfil</span>
+                </h4>
+            </div>
+            <div class="panel-body">
 
-            <form class="form-horizontal" action="Nuevo" method="post" role="form">
-                <div class="form-group">
-                    <label class="col-lg-2 control-label" for="normalInput">Descripcion Perfil</label>
-                    <div class="col-lg-9">
-                        <input type="text" name="Descripcion" id="Descripcion" class="form-control" required>
-                    </div>
-                </div><!-- End .form-group  -->
-                
-               
+                <form class="form-horizontal" action="Editar" method="post" role="form">
+                    @Html.HiddenFor(model => model.PerfilID)
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" for="normalInput">Descripcion Perfil</label>
+                        <div class="col-lg-9">
+                            <input type="text" name="Descripcion" id="Descripcion" value="@Model.Descripcion" class="form-control" required>
+                        </div>
+                    </div><!-- End .form-group  -->
+
+
 
                     <div class="panel-heading">
                         <h4>
@@ -63,7 +67,7 @@
                                             <td><a href="#" title="Ver detalle">@item.Paginas.Descripcion</a></td>
                                             <td style="text-align:center; width:50px;">
                                                 <div class="btn-group btn-group-xs">
-                                                    <a href="#" class="btn btn-small"><i class="icon-trash itemBorrar " data-id="@item.Paginas.PaginaID" title="Borrar Pagina"></i></a>
+                                                    <a href="#" class="btn btn-small"><i class="icon-trash itemBorrar " data-id="@item.PerfilPaginaID" title="Borrar Pagina"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -84,33 +88,33 @@
 
 
 
-               <!-- End .span6 --> 
-                <br/>
-                <div class="form-group">
-                    <div class="col-lg-offset-3 col-lg-9">
-                        <button type="submit" class="btn btn-info">Guardar</button>
-                        <a type="button" href="@Url.Action("Index", "Perfiles")" class="btn btn-default">Cancelar</a>
-                    </div>
-                </div><!-- End .form-group  -->
-               
-            </form>
+                    <!-- End .span6 -->
+                    <br />
+                    <div class="form-group">
+                        <div class="col-lg-offset-3 col-lg-9">
+                            <button type="submit" class="btn btn-info">Editar</button>
+                            <a type="button" href="@Url.Action("Index", "Perfiles")" class="btn btn-default">Cancelar</a>
+                        </div>
+                    </div><!-- End .form-group  -->
 
-        </div>
+                </form>
 
-    </div><!-- End .panel -->
+            </div>
 
-</div><!-- End .span6 -->
+        </div><!-- End .panel -->
+
+    </div><!-- End .span6 -->
 
 
-   
-    
+
+
 
 </div>
 
 
 
 
- <!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -161,53 +165,47 @@
 
 
 
-
-
 <script>
-
-
     $("#btnSaveAndClose").click(function () {
-        var $chkboxes = $('#table-body').find("tr input[name=diputadoID]:checked");
-        var checkBoxVals = $chkboxes.map(function () {
-            return $(this).val();
-        }).toArray();
-        if ($chkboxes.length > 0) {
+        var checkboxes = $('#table-body input');
+        var lst = "";
+        debugger;
+        for (var i = 0; i < checkboxes.length; i++) {
+            var id = checkboxes[i].value;
+            if (checkboxes[i].checked) {
+                if (lst == "")
+                    lst = id;
+                else
+                    lst += "|" + id;
+            }
+        }
+        if (lst != "") {
             $.ajax({
-                url: '@Url.Action("GetItemSelected", "Perfiles")',
-                type: 'POST',
-                data: { id: checkBoxVals },
-                traditional: true,
-                success: function (data) {
-                    var table = document.getElementById("tb_items");
-                    $.each(data, function (i, item) {
-                        var rowCount = table.rows.length;
-                        var row = table.insertRow(rowCount);
-                        var cell1 = row.insertCell(0);
-                        var cell2 = row.insertCell(1);
-                        var random = Math.floor((Math.random() * 100000) + 1);
-                        cell1.innerHTML = '<input type="hidden" name="PerfilPagina.Index" value="' + random + '"/>' + '<input type="hidden" name="PerfilPagina[' + random + '].PaginaID" value="' + item.PaginaID + '"/>' + item.Descripcion;
-                        cell2.innerHTML = '<a href="#" class="btn btn-small" onclick="removeRow(this)"><i class="icon-trash itemBorrar " title="Borrar Item"></i></a>';
-                    });
-                }
+                type: "POST",
+                url: '@Url.Action("addPaginaPerfil", "PerfilPagina")',
+                data: { pe: $("#PerfilID").val(), lstPage: lst }
+            }).success(function (result) {
+                document.location.reload(true);
+            }).error(function (err) {
+                alert(err);
             });
         }
     });
-    
 
-    function removeRow(selector) {
-        //alert();
-        if ($('#tb_items tr').length > 1) {
-            $(selector).closest('tr').remove();
+
+    $('.itemBorrar').click(function () {
+        var ID = $(this).data("id");
+        if (confirm("¿Esta seguro/a que desea borrar esta pagina del perfil?")) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("deletePaginaPerfil", "PerfilPagina")',
+                data: { Id: ID }
+            }).success(function (result) {
+                document.location.reload(true);
+            }).error(function (err) {
+                alert(err);
+            });
         }
-    }
-
-    function RemoveEquipo(rows) {
-
-        var current = window.event.srcElement;
-        //here we will delete the line
-        while ((current = current.parentElement) && current.tagName != "TR");
-        current.parentElement.removeChild(current);
-    }
-
+    });
 
 </script>

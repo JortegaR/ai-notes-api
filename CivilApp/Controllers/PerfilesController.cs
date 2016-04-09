@@ -13,7 +13,7 @@ namespace CivilApp.Controllers
         CivilAppEntities _entity = new CivilAppEntities();
         //
         // GET: /Perfiles/
-
+        [Authorize]
         public ActionResult Index()
         {
             var model = _entity.Perfil.ToList();
@@ -22,7 +22,7 @@ namespace CivilApp.Controllers
 
         //
         // GET: /PerfilUsuario/Create
-
+        [Authorize]
         public ActionResult Nuevo()
         {
             return View();
@@ -46,6 +46,17 @@ namespace CivilApp.Controllers
                 return View();
             }
         }
+        [Authorize]
+        public ActionResult Detalle(int id = 0)
+        {
+            Perfil p = _entity.Perfil.Find(id);
+
+            if (p == null)
+            {
+                return HttpNotFound();
+            }
+            return View(p);
+        }
 
         public JsonResult GetItemSelected(int[] id)
         {
@@ -56,6 +67,27 @@ namespace CivilApp.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize]
+        public ActionResult Editar(int id = 0)
+        {
+            Perfil p = _entity.Perfil.Find(id);
+
+            if (p == null)
+            {
+                return HttpNotFound();
+            }
+            return View(p);
+        }
+        [HttpPost]
+        public ActionResult Editar(Perfil modelo)
+        {
+            Perfil p = _entity.Perfil.Find(modelo.PerfilID);
+
+            p.Descripcion = modelo.Descripcion;
+            _entity.SaveChanges();
+
+            return RedirectToAction("Index", "Perfiles");
+        }
 
 
         [Authorize]
@@ -71,9 +103,6 @@ namespace CivilApp.Controllers
 
         //
         // POST: /Perfil/Delete/5
-
-  
-
         public ActionResult DeleteConfirmed(int id)
         {
             Perfil p = _entity.Perfil.Find(id);
