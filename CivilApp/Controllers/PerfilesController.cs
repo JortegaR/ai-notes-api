@@ -72,8 +72,8 @@ namespace CivilApp.Controllers
         //
         // POST: /Perfil/Delete/5
 
-        [HttpPost, ActionName("Borrar")]
-        [Authorize]
+  
+
         public ActionResult DeleteConfirmed(int id)
         {
             Perfil p = _entity.Perfil.Find(id);

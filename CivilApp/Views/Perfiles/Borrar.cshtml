@@ -31,7 +31,7 @@
                     <div class="form-group">
                         <label class="col-lg-2 control-label" for="normalInput">Descripcion Perfil</label>
                         <div class="col-lg-9">
-                            <input type="text" name="Descripcion" id="Descripcion" class="form-control" disabled>
+                            <input type="text" name="Descripcion" id="Descripcion" value="@Model.Descripcion" class="form-control" disabled>
                         </div>
                     </div><!-- End .form-group  -->
 
@@ -80,14 +80,14 @@
 
                     </div><!-- End .span6 -->
                     <br />
-                    @using (Html.BeginForm()) {
+                       
                     <div class="form-group">
                         <div class="col-lg-offset-3 col-lg-9">
-                            <button type="submit" class="btn btn-danger">Borrar</button>
+                            <a type="button" href="@Url.Action("DeleteConfirmed", "Perfiles", new { id = Model.PerfilID})" class="btn btn-danger">Borrar</a>
                             <a href="@Url.Action("Index","Perfiles")" type="button" class="btn btn-default">Cancelar</a>
                         </div>
                     </div><!-- End .form-group  -->
-                    }
+                    
                 </form>
 
             </div>
