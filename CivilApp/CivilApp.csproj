@@ -189,6 +189,7 @@
     <Compile Include="Controllers\AuthorizationController.cs" />
     <Compile Include="Controllers\DashboardAdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NivelesController.cs" />
     <Compile Include="Controllers\PerfilesController.cs" />
     <Compile Include="Controllers\PerfilPaginaController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
@@ -1783,6 +1784,11 @@
     <Content Include="Views\Usuarios\Detalle.cshtml" />
     <Content Include="Views\Usuarios\Editar.cshtml" />
     <Content Include="Views\Usuarios\Borrar.cshtml" />
+    <Content Include="Views\Niveles\Index.cshtml" />
+    <Content Include="Views\Niveles\Nuevo.cshtml" />
+    <Content Include="Views\Niveles\Detalle.cshtml" />
+    <Content Include="Views\Niveles\Editar.cshtml" />
+    <Content Include="Views\Niveles\Borrar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -66,6 +66,7 @@ namespace CivilApp.Controllers
                 {
                     u.FechaCreacion = DateTime.Now;
                     u.EstadoUsuarioID = 1;
+                    u.PerfilID = 13;
                     u.Password = MEMBER.EncryptText(u.Password);
                     _entity.Usuarios.Add(u);
                     _entity.SaveChanges();

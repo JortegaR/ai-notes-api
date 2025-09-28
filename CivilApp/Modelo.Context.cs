@@ -28,12 +28,12 @@ namespace CivilApp
         public DbSet<EstadoUsuario> EstadoUsuario { get; set; }
         public DbSet<Membresias> Membresias { get; set; }
         public DbSet<MembresiaUsuario> MembresiaUsuario { get; set; }
-        public DbSet<Niveles> Niveles { get; set; }
         public DbSet<Paginas> Paginas { get; set; }
         public DbSet<Perfil> Perfil { get; set; }
         public DbSet<PerfilPagina> PerfilPagina { get; set; }
         public DbSet<Proyectos> Proyectos { get; set; }
         public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<Usuarios> Usuarios { get; set; }
+        public DbSet<Niveles> Niveles { get; set; }
     }
 }

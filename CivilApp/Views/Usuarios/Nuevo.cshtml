@@ -7,6 +7,16 @@
     CivilAppEntities db = new CivilAppEntities();
 
     var p = db.Perfil.ToList();
+
+    try
+    {
+        if (Model.PerfilID == 13)
+        {
+            p = p.Where(x => x.PerfilID != 4).ToList();
+        }
+    }
+    catch(NullReferenceException nre){}
+    
     var items = db.Paginas.ToList();
 }
 

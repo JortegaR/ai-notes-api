@@ -27,7 +27,7 @@
       <PropertyRef Name="NivelID" />
     </Key>
     <Property Name="NivelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Descripcion" Type="int" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="150" />
   </EntityType>
   <EntityType Name="Paginas">
     <Key>

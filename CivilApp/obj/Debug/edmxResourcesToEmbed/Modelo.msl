@@ -26,14 +26,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Niveles">
-      <EntityTypeMapping TypeName="CivilAppModel.Niveles">
-        <MappingFragment StoreEntitySet="Niveles">
-          <ScalarProperty Name="NivelID" ColumnName="NivelID" />
-          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Paginas">
       <EntityTypeMapping TypeName="CivilAppModel.Paginas">
         <MappingFragment StoreEntitySet="Paginas">
@@ -98,6 +90,14 @@
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
           <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Niveles">
+      <EntityTypeMapping TypeName="CivilAppModel.Niveles">
+        <MappingFragment StoreEntitySet="Niveles">
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="NivelID" ColumnName="NivelID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

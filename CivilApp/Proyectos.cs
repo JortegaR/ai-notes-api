@@ -19,7 +19,7 @@ namespace CivilApp
         public Nullable<int> NivelID { get; set; }
         public string Descripcion { get; set; }
     
-        public virtual Niveles Niveles { get; set; }
         public virtual Usuarios Usuarios { get; set; }
+        public virtual Niveles Niveles { get; set; }
     }
 }

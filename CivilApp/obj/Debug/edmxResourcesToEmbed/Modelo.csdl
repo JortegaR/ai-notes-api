@@ -26,14 +26,6 @@
     <NavigationProperty Name="Membresias" Relationship="Self.FK_MembresiaUsuario_MembresiaUsuario" FromRole="MembresiaUsuario" ToRole="Membresias" />
     <NavigationProperty Name="Usuarios" Relationship="Self.FK_MembresiaUsuario_Usuarios" FromRole="MembresiaUsuario" ToRole="Usuarios" />
   </EntityType>
-  <EntityType Name="Niveles">
-    <Key>
-      <PropertyRef Name="NivelID" />
-    </Key>
-    <Property Name="NivelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Descripcion" Type="Int32" />
-    <NavigationProperty Name="Proyectos" Relationship="Self.FK_Proyectos_Niveles" FromRole="Niveles" ToRole="Proyectos" />
-  </EntityType>
   <EntityType Name="Paginas">
     <Key>
       <PropertyRef Name="PaginaID" />
@@ -73,8 +65,8 @@
     <Property Name="UsuarioID" Type="Int32" />
     <Property Name="NivelID" Type="Int32" />
     <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Niveles" Relationship="Self.FK_Proyectos_Niveles" FromRole="Proyectos" ToRole="Niveles" />
     <NavigationProperty Name="Usuarios" Relationship="Self.FK_Proyectos_Usuarios" FromRole="Proyectos" ToRole="Usuarios" />
+    <NavigationProperty Name="Niveles" Relationship="CivilAppModel.FK_Proyectos_Niveles" FromRole="Proyectos" ToRole="Niveles" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -142,18 +134,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Proyectos_Niveles">
-    <End Role="Niveles" Type="Self.Niveles" Multiplicity="0..1" />
-    <End Role="Proyectos" Type="Self.Proyectos" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Niveles">
-        <PropertyRef Name="NivelID" />
-      </Principal>
-      <Dependent Role="Proyectos">
-        <PropertyRef Name="NivelID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_PerfilPagina_Paginas">
     <End Role="Paginas" Type="Self.Paginas" Multiplicity="0..1" />
     <End Role="PerfilPagina" Type="Self.PerfilPagina" Multiplicity="*" />
@@ -206,7 +186,6 @@
     <EntitySet Name="EstadoUsuario" EntityType="Self.EstadoUsuario" />
     <EntitySet Name="Membresias" EntityType="Self.Membresias" />
     <EntitySet Name="MembresiaUsuario" EntityType="Self.MembresiaUsuario" />
-    <EntitySet Name="Niveles" EntityType="Self.Niveles" />
     <EntitySet Name="Paginas" EntityType="Self.Paginas" />
     <EntitySet Name="Perfil" EntityType="Self.Perfil" />
     <EntitySet Name="PerfilPagina" EntityType="Self.PerfilPagina" />
@@ -225,10 +204,6 @@
       <End Role="Usuarios" EntitySet="Usuarios" />
       <End Role="MembresiaUsuario" EntitySet="MembresiaUsuario" />
     </AssociationSet>
-    <AssociationSet Name="FK_Proyectos_Niveles" Association="Self.FK_Proyectos_Niveles">
-      <End Role="Niveles" EntitySet="Niveles" />
-      <End Role="Proyectos" EntitySet="Proyectos" />
-    </AssociationSet>
     <AssociationSet Name="FK_PerfilPagina_Paginas" Association="Self.FK_PerfilPagina_Paginas">
       <End Role="Paginas" EntitySet="Paginas" />
       <End Role="PerfilPagina" EntitySet="PerfilPagina" />
@@ -245,5 +220,30 @@
       <End Role="Usuarios" EntitySet="Usuarios" />
       <End Role="Proyectos" EntitySet="Proyectos" />
     </AssociationSet>
+    <EntitySet Name="Niveles" EntityType="CivilAppModel.Niveles" />
+    <AssociationSet Name="FK_Proyectos_Niveles" Association="CivilAppModel.FK_Proyectos_Niveles">
+      <End Role="Niveles" EntitySet="Niveles" />
+      <End Role="Proyectos" EntitySet="Proyectos" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Niveles">
+    <Key>
+      <PropertyRef Name="NivelID" />
+    </Key>
+    <Property Name="NivelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Proyectos" Relationship="CivilAppModel.FK_Proyectos_Niveles" FromRole="Niveles" ToRole="Proyectos" />
+  </EntityType>
+  <Association Name="FK_Proyectos_Niveles">
+    <End Type="CivilAppModel.Niveles" Role="Niveles" Multiplicity="0..1" />
+    <End Type="CivilAppModel.Proyectos" Role="Proyectos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Niveles">
+        <PropertyRef Name="NivelID" />
+      </Principal>
+      <Dependent Role="Proyectos">
+        <PropertyRef Name="NivelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

@@ -20,7 +20,7 @@ namespace CivilApp
         }
     
         public int NivelID { get; set; }
-        public Nullable<int> Descripcion { get; set; }
+        public string Descripcion { get; set; }
     
         public virtual ICollection<Proyectos> Proyectos { get; set; }
     }
